@@ -1,0 +1,35 @@
+ssh keys - using keys to authenticated instead of password, much secure
+  private key
+  public key
+  
+to create ssh keys: 
+  $ ssh-keygen
+
+typically, it will be stored in /home/aladinux/.ssh/ but you can change it
+  id_rsa - private key
+  id_rsa - public key
+
+.ssh files
+  authorized_keys - contains the public keys of users that are allowed to ssh login
+  known_hosts - contains identity of devices that was previously connected
+  config - 
+
+
+ssh key forwarding - will forward your private key on the machine that you will ssh login into then you can use your private keys to ssh login to another machine
+  1. create ~/.ssh/config
+  2. input the host address that you want to allow to forward your key. * can be used to define all address
+      Host [host address]
+        ForwardAgent yes
+  3. set the environment variables that need to be set for agent forwarding
+      eval "$(ssh-agent)"
+  4. add the key you want forwarded to the ssh agent
+      ssh-add [path]/[key_name]
+  5. log in to the remote host
+      ssh -A [user]@[hostname]
+  6. from here, if you log into another host that accepts that key, it will work
+      ssh [user]@[hostname]
+      
+      
+      
+  
+      
