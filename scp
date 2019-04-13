@@ -1,0 +1,10 @@
+scp - secure copy (remote file copy programcpe 
+ 
+
+copy to remote host
+
+$ scp [file] [user]@[host]:[path]
+
+to specify a port
+
+$ scp -P [portnumber] [file] [user]@[host]:[path]
