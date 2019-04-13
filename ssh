@@ -29,7 +29,8 @@ ssh key forwarding - will forward your private key on the machine that you will 
   6. from here, if you log into another host that accepts that key, it will work
       ssh [user]@[hostname]
       
-      
+ssh using custom port
+ssh -p [portnumber] [user]@[hostname]
       
   
       
