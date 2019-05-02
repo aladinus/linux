@@ -31,6 +31,12 @@ ssh key forwarding - will forward your private key on the machine that you will 
       
 ssh using custom port
 ssh -p [portnumber] [user]@[hostname]
+
+
+
+////
+ansible & ssh 
+https://medium.com/linux-academy/ansible-and-ssh-considerations-cc6a4299fb75?hss_channel=lcp-3761108
       
   
       
