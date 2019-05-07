@@ -1,5 +1,7 @@
 
 // became root by supplying your users passwd
+// user must be in /etc/sudoers file
+// or member of sudo group
 $ sudo su -
 
 // became root by supply root's passwd
@@ -7,3 +9,36 @@ $ su -
 
 // launch a new shell as root 
 $ sudo -s
+
+
+
+// switch user
+$ su - ragnar
+
+
+
+--------------------------------------
+// use sudo to run cmd as root
+// just put it before any command
+
+$ sudo <cmd>
+---------------------------------------
+
+
+
+---------------------------
+//add user in /etc/sudoers
+$ sudo visudo 
+
+// add user like this
+aladinus ALL=(ALL:ALL) ALL
+---------------------------
+
+---------------------------
+// add sudo group as additional group for a user
+$ usermod -G sudo aladinus
+
+// check if user is added in the sudo group
+$ sudo grep sudo /etc/group
+-----------------------------
+
