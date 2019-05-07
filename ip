@@ -1,0 +1,12 @@
+how to get your public ip through cli 
+
+use curl cmd
+
+
+
+$ curl https://api.ipify.org
+$ 110.54.232.83
+
+
+
+more options on: https://www.ipify.org
