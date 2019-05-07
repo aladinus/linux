@@ -1,0 +1,9 @@
+
+// became root by supplying your users passwd
+$ sudo su -
+
+// became root by supply root's passwd
+$ su -
+
+// launch a new shell as root 
+$ sudo -s
