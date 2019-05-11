@@ -1,8 +1,168 @@
-find
-
 locate
+//before you using locate cmd, run 'updatedb' cmd first to update the db list of files
+locate [filename]
 
+
+--------------------------------------
+find
+//searches for filename 
+
+//finds all files and directories below the current directory
+$ find
+
+//search from a particular point in the directory tree, just add the name of the directory you want to search (such as /etc)
+//If you run find as a regular user, you do not have special permission to find files that are readable only by the root user.
+// So find produces a bunch of error messages. you can direct standard errors to /dev/null.
+// $ find /etc 2> /dev/null
+$ find /etc
+
+// run as root to avoid permission restrictions
+# find /etc
+
+// -ls is like ls -l 
+$ find $HOME -ls
+
+=====================
+Finding files by name
+=====================
+// use -name and -iname
+# find /etc -name passwd
+/etc/pam.d/passwd
+/etc/passwd
+# find /etc -iname '*passwd*'
+/etc/pam.d/passwd
+/etc/passwd-
+/etc/passwd.OLD
+/etc/passwd
+/etc/MYPASSWD
+/etc/security/opasswd
+
+=====================
+Finding files by size
+=====================
+// use -size
+// use  + or - to search larger or smaller than specified size
+$ find /usr/share/ -size +10M
+$ find /mostlybig -size -1M
+$ find /bigdata -size +500M -size -5G -exec du -sh {} \;
+4.1G /bigdata/images/rhel6.img
+606M /bigdata/Fedora-16-i686-Live-Desktop.iso
+560M /bigdata/dance2.avi
+
+=====================
+Finding files by user
+=====================
+// use -user or -group
+// you can also use  -or and -not for refine search
+$ find /home -user chris -ls
+131077 4 -rw-r--r-- 1 chris chris 379 Jun 29 2014 ./.bashrc
+# find /home -user chris -or -user joe -ls
+131077 4 -rw-r--r-- 1 chris chris 379 Jun 29 2014 ./.bashrc
+181022 4 -rw-r--r-- 1 joe joe 379 Jun 15 2014 ./.bashrc
+# find /etc -group ntp -ls
+131438 4 drwxrwsr-x 3 root ntp 4096 Mar 9 22:16 /etc/ntp
+# find  /var/spool -not -user root -ls
+262100 0 -rw-rw---- 1 rpc mail 0 Jan 27 2014 /var/spool/mail/rpc
+278504 0 -rw-rw---- 1 joe mail 0 Apr 3 2014 /var/spool/mail/joe
+261230 0 -rw-rw---- 1 bill mail 0 Dec 18 2014 /var/spool/mail/bill
+277373 0 -rw-rw---- 1 chris mail 0 Mar 15 2014 /var/spool/mail/chris
+
+=====================
+Finding files by permission
+=====================
+// use -perm   with 
+// use octal permissions to match   -->  7 4 2 1 0
+// With a hyphen (-) in front of the number, all three of the bits indicated must match;
+// with a forward slash (/) in front of it, any of the numbers can match for the search to find a file.  use to be + but depreciated already
+// The full, exact numbers must match if neither a hyphen or plus is used.
+$ find /bin -perm 755 -ls
+788884 28 -rwxr-xr-x 1 root root 28176 Mar 10 2014 /bin/echo
+$ find /home/chris/ -perm -222 -type d -ls
+144503 4 drwxrwxrwx 8 chris chris 4096 June 23 2014 /home/chris
+$ find /myreadonly -perm /222 -type f
+685035 0 -rw-rw-r-- 1 chris chris 0 Dec 30 2014 /tmp/write/abc
+$ find . -perm -002 -type f -ls
+266230 0 -rw-rw-rw- 1 chris chris 0 Dec 20 2014 ./LINUX_BIBLE/a
+
+=====================
+Finding files by permission
+=====================
+//The time options (-atime, -ctime, and -mtime) enable you to search based on the number of days since each file was accessed, was changed, or had its metadata changed. 
+//The min options (-amin, -cmin, and -mmin) do the same in minutes.
+
+// Numbers that you give as arguments to the min and time options are preceded by a hyphen (to indicate a time from the current time to that number of minutes or days ago) or
+// a plus (to indicate time from the number of minutes or days ago and older). 
+// With no hyphen or plus, the exact number is matched
+
+
+// You just changed the contents of a confi guration fi le, and you can’t remember which one. So you search /etc to see what has changed in the past 10 minutes:
+$ find /etc/ -mmin -10
+
+//You suspect that someone hacked your system three days ago. So you search the system to see if any commands have had their ownership or permissions changed in the past three days:
+$ find /bin /usr/bin /sbin /usr/sbin -ctime -3
+
+//You want to fi nd fi les in your FTP server (/var/ftp) and web server (/var/www) that have not been accessed in more than 300 days, so you can see if any need to be deleted:
+$ find /var/ftp /var/www -atime +300
+
+==============================
+// With the -not and -or option 
+==============================
+// There is a shared directory called /var/all. This command line enables you to find files that are owned by either joe or chris.
+$ find /var/all \( -user joe -o -user chris \) -ls
+679967 0 -rw-r--r-- 1 chris chris 0 Dec 31 2014 /var/all/cn
+679977 0 -rw-r--r-- 1 joe joe 4379 Dec 31 2014 /var/all/jj
+679972 0 -rw-r--r-- 1 joe sales 0 Dec 31 2014 /var/all/js
+
+// This command line searches for fi les owned by the user joe, but only those that are not assigned to the group joe:
+$ find /var/all/ -user joe -not -group joe -ls
+679972 0 -rw-r--r-- 1 joe sales 0 Dec 31 2014 /var/all/js
+
+// You can also add multiple requirements on your searches. Here, a file must be owned by the user joe and must also be more than 1MB in size:
+$ find /var/all/ -user joe -and -size +1M -ls
+679977 0 -rw-r--r-- 1 joe joe 4379 Dec 31 2014 /var/all/jj
+
+====================================
+Finding files and executing commands
+====================================
+$ find [options] -exec command {} \;
+$ find [options] -ok command {} \;
+
+//This command fi nds any fi le named iptables under the /etc directory and includes that name in the output of an echo command:
+$ find /etc -iname iptables -exec echo "I found {}" \;
+I found /etc/bash_completion.d/iptables
+I found /etc/sysconfig/iptables
+
+//This command fi nds every fi le under the /usr/share directory that is more than
+//5MB in size. Then it lists the size of each fi le with the du command. The output
+//of find is then sorted by size, from largest to smallest. With -exec entered, all
+//entries found are processed, without prompting:
+$ find /usr/share -size +5M -exec du {} \; | sort -nr
+116932 /usr/share/icons/HighContrast/icon-theme.cache
+69048 /usr/share/icons/gnome/icon-theme.cache
+20564 /usr/share/fonts/cjkuni-uming/uming.ttc
+
+//The -ok option enables you to choose, one at a time, whether each fi le found is
+acted upon by the command you enter. For example, you want to fi nd all fi les that
+belong to joe in the /var/allusers directory (and its subdirectories) and move
+them to the /tmp/joe directory:
+# find /var/allusers/ -user joe -ok mv {} /tmp/joe/ \;
+< mv ... /var/allusers/dict.dat > ? y
+< mv ... /var/allusers/five > ? y
+
+
+---------------------------------------
 grep
+// -i ignore case
+// -v reverse search
+// -r recursive
+// -n show number line
+
+$ grep [-rni] word /etc/services
+
+$ ip addr show | grep inet
+inet 127.0.0.1/8 scope host lo
+inet 192.168.1.231/24 brd 192.168.1.255 scope global wlan0
 
 
-**add this guide**
+
+
