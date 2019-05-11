@@ -1,10 +1,19 @@
+===================
+===================
 locate
+===================
+===================
+
 //before you using locate cmd, run 'updatedb' cmd first to update the db list of files
 locate [filename]
 
 
 --------------------------------------
+===================
+===================
 find
+===================
+===================
 //searches for filename 
 
 //finds all files and directories below the current directory
@@ -151,7 +160,11 @@ them to the /tmp/joe directory:
 
 
 ---------------------------------------
+===================
+===================
 grep
+===================
+===================
 // -i ignore case
 // -v reverse search
 // -r recursive
