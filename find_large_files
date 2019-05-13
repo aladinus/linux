@@ -1,0 +1,20 @@
+search for the largest file
+-----------------------------------------
+// du -sh * 
+// -s summarize
+// -h human readable
+// need to put * to list all 
+
+// sort -rh
+// -r reverse
+// -h human readable
+
+$ du -sh * | sort -rh
+-----------------------------------------
+// -l long listing
+// -h human readable
+// -S sort by size, large first
+$ ls -lhS
+-------------------------------------------
+//search for file larger than 1G
+find . -size +1G -ls
