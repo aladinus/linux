@@ -1,0 +1,127 @@
+===========
+assigning value to variables
+============
+//use $()
+
+now=$(date)
+
+---------------------------------------------------
+===========
+accessing value of a variables
+============
+// use ${var1} or $var1
+
+echo today is $today
+echo today is ${now}
+--------------------------------------------
+============
+using brackets
+=============
+# instead of using expr to perform math operations
+# use brackets
+
+$ var1=$(expr 1 + 5)
+6
+
+$ var1=$[ 1 + 5 ]
+6
+
+//without spaces also works
+$ var1=$[1+5]
+6
+
+
+
+
+----------------------
+================
+test cmd
+================
+//instead of using test
+
+if test condition
+then
+	commands
+fi
+
+
+//use brackets
+
+if [ condition ]
+then
+	commands
+fi
+
+
+===================
+double parentheses
+===================
+The double  parentheses command allows you to incorporate advanced mathematical formulas in  your  comparisons.
+The test or [ ] command  allows  for  only  simple  arithmetic operations in the comparison.
+The double parentheses command provides more mathematical symbols.
+// (( expression ))
+
+The Double Parentheses Command Symbols
+
+Symbol		Description
+val++ 		Post-increment
+val--		Post-decrement
+++val		Pre-increment
+--val		Pre-decrement
+!		Logical negation
+∼		Bitwise negation
+**		Exponentiation
+<<		Left bitwise shift
+>>		Right bitwise shift
+&		Bitwise Boolean AND
+|		Bitwise Boolean OR
+&&		Logical AND
+||		Logical OR
+
+$ 
+cat test23.sh
+#!/bin/bash
+# using double parenthesis
+#
+val1=10
+#
+if (( $val1 ** 2 > 90 ))
+then
+   (( val2 = $val1 ** 2 ))
+   echo “The square of $val1 is $val2”
+fi
+$
+$ 
+./test23.sh
+The square of 10 is 100
+
+
+
+===================
+double brackets
+===================
+The double bracket command provides advanced features for string comparisons.
+The double  bracketed expression uses  the  standard  string  comparison  used  in  the  test
+evaluations. However, it provides an additional feature that the test evaluations don’t — pattern matching.
+[[ expression ]]
+
+
+$ 
+cat test24.sh
+#!/bin/bash
+# using pattern matching
+#
+if [[ $USER == r* ]]
+then
+   echo “Hello $USER”
+else
+   echo “Sorry, I do not know you”
+fi
+$
+$ 
+./test24.sh
+Hello rich
+
+
+Notice in the preceding script that double equal signs ( == ) are used. 
+These double equal signs designate the string to the right ( r* ) as a pattern, and pattern matching rules are applied.
