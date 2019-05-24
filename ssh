@@ -7,7 +7,8 @@ to create ssh keys:
 
 typically, it will be stored in /home/aladinux/.ssh/ but you can change it
   id_rsa - private key
-  id_rsa - public key
+  id_rsa.pub - public key
+
 
 .ssh files
   authorized_keys - contains the public keys of users that are allowed to ssh login
