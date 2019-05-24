@@ -15,7 +15,7 @@ typically, it will be stored in /home/aladinux/.ssh/ but you can change it
   known_hosts - contains identity of devices that was previously connected
   config - 
 
-
+// this is assuming your public key is already in the authorized keys of all the server you intend to log in
 ssh key forwarding - will forward your private key on the machine that you will ssh login into then you can use your private keys to ssh login to another machine
   1. create ~/.ssh/config
   2. input the host address that you want to allow to forward your key. * can be used to define all address
