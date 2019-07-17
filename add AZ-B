@@ -1,0 +1,18 @@
+while read DIR
+do
+  for FILENAME in $(find $DIR -name "*deploy")
+  do
+    echo $FILENAME
+    sed '/ap-northeast-2a/a\
+    \ \ \ \ - ap-northeast-2b
+    ' $FILENAME > tmp
+    mv tmp $FILENAME
+  done
+done < ${1}
+
+
+
+include.txt
+app1
+app2
+app3
