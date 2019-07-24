@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#delete users from list
+
+//user list must be outside the current dir
+list=$1
+
+#IFS=$'\n'  //use if delete_user_list line has a space
+
+for NAME in $(cat $list)
+do
+        echo $NAME      
+        rm -i $(grep -Ril $NAME)
+
+done
+
+
+
+
+userlist.txt
+a.unay@samsung.com
+deejay.lee@samsung.com
