@@ -171,11 +171,16 @@ grep
 // -n show number line
 
 $ grep [-rni] word /etc/services
+//outputs the filename, line number, and line which match
+
+$ grep -iRl word 
+//outputs only the filename
+
+
 
 $ ip addr show | grep inet
 inet 127.0.0.1/8 scope host lo
 inet 192.168.1.231/24 brd 192.168.1.255 scope global wlan0
-
 
 
 
