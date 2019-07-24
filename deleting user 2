@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#delete users from list
+
+exec 0< $1
+
+while read line
+do
+        echo -n " deleting $line ..."
+        rm  $(grep -Ril $line)
+        echo "   done"
+done
