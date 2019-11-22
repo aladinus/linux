@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#terminate drained_instance
+
+//ec2 id list must be the same dir with the script
+list="drained_ec2"
+
+for ID in $(cat $list)
+do
+        echo $ID will be terminated     
+	aws --profile iot-global --region us-east-2 autoscaling terminate-instance-in-auto-scaling-group --instance-id $ID --should-decrement-desired-capacity
+done
+
+
+#https://docs.aws.amazon.com/cli/latest/reference/autoscaling/terminate-instance-in-auto-scaling-group.html
