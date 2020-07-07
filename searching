@@ -165,6 +165,8 @@ them to the /tmp/joe directory:
 grep
 ===================
 ===================
+refer: https://linuxize.com/post/regular-expressions-in-grep/
+
 // -i ignore case
 // -v reverse search
 // -r recursive
